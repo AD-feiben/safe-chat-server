@@ -3,8 +3,12 @@
 
 import logging
 import tornado.options
+import tornado.httpserver
+import tornado.ioloop
 from tornado.httpclient import AsyncHTTPClient
-from tornado.options import define
+from tornado.options import options, define
+from app.application import Application
+from utils import dbpool
 import config
 
 
@@ -18,6 +22,26 @@ AsyncHTTPClient.configure(None, max_clients=1000)
 
 def main():
     tornado.options.parse_command_line()
+
+    application = Application()
+    http_server = tornado.httpserver.HTTPServer(application, xheaders=True)
+    http_server.listen(options.port, options.host)
+
+    print("=" * 100)
+    print("* Server: Success!")
+    print("* Host:   http://" + options.host + ":%s" % options.port)
+    print("* Quit the server with Control-C")
+    print("=" * 100)
+
+    logging.info("=" * 100)
+    logging.info("* Server: Success!")
+    logging.info("* Host:   http://" + options.host + ":%s" % options.port)
+    logging.info("* Quit the server with Control-C")
+    logging.info("=" * 100)
+
+    dbpool.init_app()
+
+    tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == "__main__":
