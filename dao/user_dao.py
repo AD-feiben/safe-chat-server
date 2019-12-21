@@ -3,7 +3,7 @@ import uuid
 
 from utils.dbpool import create_cursor
 from utils.my_exception import MyException, ErrorEnum
-from utils import indicator_utils
+from utils import indicator_util
 
 
 def add(data):
@@ -16,22 +16,15 @@ def add(data):
         try:
             cursor.execute(
                 'INSERT INTO `safe_chat`.`user` '
-                ' (`id`,`nick_name`, `pwd_hash`, `salt`, `email`, `real_name`, '
-                ' `sex`, `phone`, `avatar`, `what_up`, `birth_date`, `origin`) '
-                ' VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ',
+                ' (`id`,`nick_name`, `pwd_hash`, `salt`, `email`) '
+                ' VALUES (%s, %s, %s, %s, %s) ',
                 (data.get('id'),
                  data.get('nick_name'),
                  data.get('pwd_hash'),
                  data.get('salt'),
-                 data.get('email'),
-                 data.get('real_name'),
-                 data.get('sex'),
-                 data.get('phone'),
-                 data.get('avatar'),
-                 data.get('what_up'),
-                 data.get('birth_date'),
-                 data.get('origin')))
+                 data.get('email')))
             conn.commit()
+            return get_safely(data.get('id'))
         except Exception as e:
             raise MyException(ErrorEnum.SERVER_ERROR, e)
 
@@ -66,9 +59,9 @@ def get(indicator):
         uuid.UUID(indicator)
         key = 'id'
     except ValueError:
-        if indicator_utils.is_user_id(indicator):
+        if indicator_util.is_user_id(indicator):
             key = 'id'
-        elif indicator_utils.is_emil(indicator):
+        elif indicator_util.is_emil(indicator):
             key = 'email'
         else:
             raise MyException(ErrorEnum.ARG_ILLEGAL_VALUE)
@@ -76,7 +69,7 @@ def get(indicator):
     with create_cursor() as (conn, cursor):
         try:
             cond = "{}=%s".format(key, indicator.lower())
-            sql = 'SELECT * FROM `safe_chat`.`users` WHERE {}'.format(cond)
+            sql = 'SELECT * FROM `safe_chat`.`user` WHERE {}'.format(cond)
             cursor.execute(sql, indicator)
             user = cursor.fetchone()
             return user

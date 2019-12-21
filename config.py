@@ -1,6 +1,7 @@
 # coding=utf-8
 import os
 
+App_Name = 'Safe Chat'
 
 ID = 1
 Host = '0.0.0.0'
@@ -24,7 +25,7 @@ Mysql = {
     'dev': {
         'host': 'localhost',
         'port': 3306,
-        'user': 'chat',
+        'user': 'root',
         'pwd': 'root',
         'charset': 'utf8'
     },
@@ -35,4 +36,21 @@ Mysql = {
         'pwd': '',
         'charset': 'utf8'
     }
+}
+
+Redis = {
+    'dev': {
+        'host': 'localhost',
+        'port': '6379'
+    },
+    'prod': {
+        'host': 'localhost',
+        'port': '6379'
+    }
+}
+
+Mail = {
+    'host': 'smtp.qq.com',
+    'user': '',
+    'pass': ''
 }

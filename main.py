@@ -8,7 +8,7 @@ import tornado.ioloop
 from tornado.httpclient import AsyncHTTPClient
 from tornado.options import options, define
 from app.application import Application
-from utils import dbpool
+from utils import dbpool, rdpool
 import config
 
 
@@ -40,6 +40,7 @@ def main():
     logging.info("=" * 100)
 
     dbpool.init_app()
+    rdpool.init_app()
 
     tornado.ioloop.IOLoop.instance().start()
 

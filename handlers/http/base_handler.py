@@ -18,6 +18,7 @@ class BaseHandler(RequestHandler):
                 self.write_error(exception.code, exception.msg)
 
     def write_error(self, code, msg=None):
+        print(code, msg)
         if msg is None:
             msg = 'Unknown failure'
 

@@ -9,7 +9,7 @@ class MyException(Exception):
     def __init__(self, err_enum, msg=None, e=None):
         if isinstance(err_enum, ErrorEnum):
             code = err_enum.value[0]
-            msg = err_enum.valuep[1]
+            msg = msg or err_enum.value[1]
         else:
             code = err_enum
         self.code = code
