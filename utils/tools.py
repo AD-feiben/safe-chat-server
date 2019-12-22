@@ -9,6 +9,13 @@ def gen_sha256(msg):
     return sha256.hexdigest()
 
 
+def gen_id1():
+    """
+        uuid以hex输出
+        """
+    return uuid.uuid4().hex
+
+
 def gen_id3():
     """
     对uuid进行base64编码，且去掉等号、替换'+'和'/'

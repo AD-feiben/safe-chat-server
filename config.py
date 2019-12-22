@@ -54,3 +54,10 @@ Mail = {
     'user': '',
     'pass': ''
 }
+
+# 登录模式：单点登录或者多点登录，single或者multi
+LoginMode = 'multi'
+
+# Access Token过期时间，指最后一次访问后多久过期
+# 一周后失效
+AccessTokenTimeout = 604800

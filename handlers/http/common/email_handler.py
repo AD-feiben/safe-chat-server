@@ -38,7 +38,8 @@ class SendEmailHandler(base_handler.BaseHandler):
                 email=email,
                 code=code,
                 href='http://122.51.101.169/',
-                date=time.strftime('%Y-%m-%d %H:%M:%S')
+                date=time.strftime('%Y-%m-%d %H:%M:%S'),
+                year=time.strftime('%Y')
             ),
             'html'
         )

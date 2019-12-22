@@ -17,3 +17,7 @@ async def get_safely(indicator):
 
 async def update(user_id, data):
     return user_dao.update(user_id, data)
+
+
+def out_filter(*args, **kwargs):
+    return user_dao.out_filter(*args, **kwargs)
